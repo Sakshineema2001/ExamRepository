@@ -10,3 +10,6 @@
     background-image: url('../../../../assets/trophy.png');
     background-size: cover;
 }
+.text-center{
+    text-align: center;
+}
