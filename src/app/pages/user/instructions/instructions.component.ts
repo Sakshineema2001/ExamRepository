@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-instructions',
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
 export class InstructionsComponent {
 qid:any;
 
-constructor(private route:){
+constructor(private route:ActivatedRoute){
 
 }
 }
