@@ -19,6 +19,7 @@ import { UserdashboardComponent } from './pages/user/userdashboard/userdashboard
 import { AdminGuard } from './services/admin.guard';
 import { UserGuard } from './services/user.guard';
 import { InstructionsComponent } from './pages/user/instructions/instructions.component';
+import { StartQuizComponent } from './pages/user/start-quiz/start-quiz.component';
 
 const routes: Routes = [
   {
@@ -97,7 +98,12 @@ const routes: Routes = [
         component:InstructionsComponent,
       },
     ]
-  }
+  },
+  {
+    path:'start/:qid',
+    component:StartQuizComponent,
+    canActivate:[UserGuard],
+  },
 ];
 
 @NgModule({
