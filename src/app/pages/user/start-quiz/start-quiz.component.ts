@@ -18,8 +18,9 @@ export class StartQuizComponent implements OnInit{
   attempted = 0;
   givenAnswer: any;
   correctAnswers = 0;
-
   isSubmit = false;
+
+  timer:any;
 
   constructor(private locationFor:LocationStrategy, private route:ActivatedRoute, private question:QuestionsService){
 
@@ -36,11 +37,14 @@ export class StartQuizComponent implements OnInit{
      this.question.getQuestionsOfQuizForTest(this.qid).subscribe(
       (data)=>{
          this.questions = data;
+         this.timer = this.questions.length * 2 * 60;
          console.log(this.questions)
          this.questions.forEach((q:any) =>
          {
           q['givenAnswer'] = '';
          });
+
+         this.startTimer();
      },(error) =>{
       console.log("something went wrong")
       swal.fire('Error','Error while loading questions!!','error')
@@ -64,22 +68,44 @@ export class StartQuizComponent implements OnInit{
       /* Read more about isConfirmed, isDenied below */
       if (e.isConfirmed) {
         //calculation
-        this.isSubmit = true;
-           this.questions.forEach((q) =>{
-              if(q.givenAnswer == q.answer){
-                this.correctAnswers++;
-                let marksSingle = this.questions[0].quiz.maxMarks / this.questions.length;
-                this.marksGot += marksSingle;
-              }
-              if(q.givenAnswer.trim() != ""){
-                this.attempted++;
-              }
-           });
+          this.evalQuiz();
       } 
     });
   }
 
+  startTimer(){
+    let t  = window.setInterval(() =>{
+      console.log(this.timer)
+      if(this.timer <= 0){
+        this.evalQuiz()
+        clearInterval(t);
+      }else{
+        this.timer--;
+      }
+    }, 1000);
+  }
+
+  getFormattedTime(){
+    let mm = Math.floor(this.timer/60)
+    let ss = this.timer - mm * 60;
+    return `${mm}: min : ${ss} sec`
+  }
+
   printPage() {
   window.print();
+  }
+
+  evalQuiz(){
+    this.isSubmit = true;
+    this.questions.forEach((q) =>{
+       if(q.givenAnswer == q.answer){
+         this.correctAnswers++;
+         let marksSingle = this.questions[0].quiz.maxMarks / this.questions.length;
+         this.marksGot += marksSingle;
+       }
+       if(q.givenAnswer.trim() != ""){
+         this.attempted++;
+       }
+    });
   }
 }

@@ -44,7 +44,21 @@
         </div>
         <div class="col-md-2">
             <!-- progress -->
-
+            <mat-card style="margin-top: 68px;">
+                <mat-card-header>
+                    <mat-card-title> Progress  </mat-card-title>
+                    <mat-card-subtitle>
+                        <h3>Quiz will automatically be submitted when timer reaches to <b>00:00</b></h3>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-spinner style="margin: auto;" mode="determinate" [value]="(timer / (this.questions.length * 2 * 60)) * 100"></mat-spinner>
+                    <h1 class="text-center"><b>{{getFormattedTime()}}</b></h1>
+                    <mat-divider></mat-divider>
+                    <br/>
+                    <h1 *ngIf="timer == 0"><b>Times Up!!</b></h1>
+                </mat-card-content>
+            </mat-card>
         </div>
         </div>
     </div>
