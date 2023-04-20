@@ -31,10 +31,10 @@ constructor(private route:ActivatedRoute,private quiz:QuizzesService, private ro
       title: 'Do you want to Start the quiz?',
       showCancelButton: true,
       confirmButtonText: 'Start',
+      icon: 'info',
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
         this.router.navigate(['/start/' + this.qid])
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')

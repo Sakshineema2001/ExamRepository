@@ -16,6 +16,10 @@ export class QuestionsService implements OnInit {
    return this.http.get(`${baseurl}/questions/quiz/all/${qid}`)
   }
 
+  public getQuestionsOfQuizForTest(qid:any){
+    return this.http.get(`${baseurl}/questions/quiz/${qid}`)
+  }
+
   public addQuestion(question:any){
     return this.http.post(`${baseurl}/questions/`,question)
   }
