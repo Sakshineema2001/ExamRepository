@@ -41,7 +41,7 @@ export class StartQuizComponent implements OnInit{
          console.log(this.questions)
          this.questions.forEach((q:any) =>
          {
-          q['givenAnswer'] = '';
+          q['givenAnswers'] = '';
          });
 
          this.startTimer();
@@ -96,16 +96,24 @@ export class StartQuizComponent implements OnInit{
   }
 
   evalQuiz(){
-    this.isSubmit = true;
-    this.questions.forEach((q) =>{
-       if(q.givenAnswer == q.answer){
-         this.correctAnswers++;
-         let marksSingle = this.questions[0].quiz.maxMarks / this.questions.length;
-         this.marksGot += marksSingle;
-       }
-       if(q.givenAnswer.trim() != ""){
-         this.attempted++;
-       }
-    });
+
+     this.question.evalQuizes(this.questions).subscribe(
+      (data) =>{
+       console.log(data)
+     },(error) =>{
+      console.log("Error While loading...")
+     })
+
+    // this.isSubmit = true;
+    // this.questions.forEach((q) =>{
+    //    if(q.givenAnswer == q.answer){
+    //      this.correctAnswers++;
+    //      let marksSingle = this.questions[0].quiz.maxMarks / this.questions.length;
+    //      this.marksGot += marksSingle;
+    //    }
+    //    if(q.givenAnswer.trim() != ""){
+    //      this.attempted++;
+    //    }
+    // });
   }
 }

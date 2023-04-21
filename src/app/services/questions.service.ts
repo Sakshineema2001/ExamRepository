@@ -35,4 +35,8 @@ export class QuestionsService implements OnInit {
   public updateQuestions(question:any){
     return this.http.put(`${baseurl}/questions/`,question)
   }
+
+  public evalQuizes(questions){
+    return this.http.post(`${baseurl}/questions/eval-quiz`,questions);
+  }
 }
